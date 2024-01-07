@@ -1,12 +1,12 @@
 #[derive(Debug)]
-pub struct Lox {
+pub struct LoxError {
     line: usize,
     message: String,
 }
 
-impl Lox {
-    pub fn error(line: usize, message: String) -> Lox {
-        Lox { line, message }
+impl LoxError {
+    pub fn error(line: usize, message: String) -> LoxError {
+        LoxError { line, message }
     }
 
     pub fn report(&self, loc: &str) {

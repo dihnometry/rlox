@@ -1,5 +1,5 @@
 use crate::{
-    error::Lox,
+    error::LoxError,
     token::{Object, Token},
     token_type::TokenType,
 };
@@ -110,7 +110,7 @@ impl Scanner {
             n if Scanner::is_numeric(n) => self.number(),
             n if Scanner::is_alpha(n) => self.identifier(),
             _ => {
-                let error = Lox::error(self.line, String::from("Unexpected character."));
+                let error = LoxError::error(self.line, String::from("Unexpected character."));
                 error.report(&self.current.to_string());
             }
         }
@@ -185,7 +185,7 @@ impl Scanner {
         }
 
         if self.is_at_end() {
-            let error = Lox::error(self.line - 1, String::from("Unterminated string."));
+            let error = LoxError::error(self.line - 1, String::from("Unterminated string."));
             error.report(&self.current.to_string());
             return;
         }
