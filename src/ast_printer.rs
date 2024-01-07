@@ -1,6 +1,10 @@
 use std::ops::Deref;
 
-use crate::{expr::{self, ExprVisitor, Expr}, token_type::TokenType, token::{Token, Object}};
+use crate::{
+    expr::{self, Expr, ExprVisitor},
+    token::{Object, Token},
+    token_type::TokenType,
+};
 
 pub struct AstPrinter;
 
@@ -15,7 +19,11 @@ impl ExprVisitor<String> for AstPrinter {
     }
 
     fn visit_unary(&self, unary: &expr::UnaryExpr) -> String {
-        AstPrinter::parenthesize(unary.operator.lexeme.clone(), vec![unary.right.deref()], self)
+        AstPrinter::parenthesize(
+            unary.operator.lexeme.clone(),
+            vec![unary.right.deref()],
+            self,
+        )
     }
 
     fn visit_literal(&self, literal: &expr::LiteralExpr) -> String {
@@ -28,7 +36,11 @@ impl AstPrinter {
         AstPrinter::get_expression_string(expr, visitor)
     }
 
-    pub fn parenthesize(name: String, exprs: Vec<&Expr>, visitor: &impl ExprVisitor<String>) -> String {
+    pub fn parenthesize(
+        name: String,
+        exprs: Vec<&Expr>,
+        visitor: &impl ExprVisitor<String>,
+    ) -> String {
         let mut string = format!("({}", name);
         for expression in exprs.iter() {
             string.push(' ');
