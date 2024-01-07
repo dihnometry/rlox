@@ -1,0 +1,47 @@
+#[derive(Debug, Clone, Copy)]
+pub enum TokenType {
+    // Single character tokens
+    RightParen,
+    LeftParen,
+    LeftBrace,
+    RightBrace,
+    Comma,
+    Dot,
+    Minus,
+    Plus,
+    SemiColon,
+    Slash,
+    Star,
+    // One or two character tokens
+    Bang,
+    BangEqual,
+    Assign,
+    Equals,
+    Greater,
+    GreaterEqual,
+    Less,
+    LessEqual,
+    // Literals
+    Ident,
+    String,
+    Number,
+    // Keywords
+    And,
+    Class,
+    Else,
+    False,
+    For,
+    Fun,
+    If,
+    Nil,
+    Or,
+    Print,
+    Return,
+    Super,
+    This,
+    True,
+    Var,
+    While,
+
+    Eof,
+}
