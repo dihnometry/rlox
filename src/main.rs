@@ -3,6 +3,7 @@ use std::fs;
 use std::io::{self, Write};
 use std::process;
 
+mod ast_printer;
 mod error;
 mod expr;
 mod scanner;

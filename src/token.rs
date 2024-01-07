@@ -23,8 +23,8 @@ impl std::fmt::Display for Object {
 #[derive(Debug)]
 pub struct Token {
     ttype: TokenType,
-    lexeme: String,
-    literal: Option<Object>,
+    pub lexeme: String,
+    pub literal: Option<Object>,
     line: usize,
 }
 
