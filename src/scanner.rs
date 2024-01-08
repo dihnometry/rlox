@@ -100,6 +100,15 @@ impl Scanner {
                     while self.peek() != '\n' && !self.is_at_end() {
                         self.advance();
                     }
+                } else if self.is_next('*') {
+                    loop {
+                        if self.peek() == '*' && self.peek_next() == '/' {
+                            self.advance();
+                            self.advance();
+                            break;
+                        }
+                        self.advance();
+                    }
                 } else {
                     self.add_token(TokenType::Slash, None);
                 }
