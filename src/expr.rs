@@ -8,7 +8,7 @@ pub enum Expr {
     Literal(LiteralExpr),
 }
 
-pub trait ExprVisitor<T> {
+pub trait Visitor<T> {
     fn visit_binary(&self, binary: &BinaryExpr) -> T;
     fn visit_grouping(&self, grouping: &GroupingExpr) -> T;
     fn visit_unary(&self, unary: &UnaryExpr) -> T;
@@ -26,7 +26,7 @@ macro_rules! define_ast {
             }
 
             impl $name {
-                pub fn accept<T>(&self, visitor: &impl ExprVisitor<T>) -> T {
+                pub fn accept<T>(&self, visitor: &impl Visitor<T>) -> T {
                     visitor.$visitor(self)
                 }
             }
