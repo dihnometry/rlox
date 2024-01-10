@@ -1,10 +1,11 @@
 use crate::token_type::TokenType;
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub enum Object {
     Num(f64),
     Str(String),
-    Boolean(bool),
+    True,
+    False,
     Nil,
 }
 
@@ -13,19 +14,20 @@ impl std::fmt::Display for Object {
         let str = match self {
             Object::Num(num) => num.to_string(),
             Object::Str(s) => s.clone(),
-            Object::Boolean(b) => b.to_string(),
+            Object::True => true.to_string(),
+            Object::False => false.to_string(),
             Object::Nil => String::from("nil"),
         };
         write!(f, "{str}")
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct Token {
-    ttype: TokenType,
+    pub ttype: TokenType,
     pub lexeme: String,
     pub literal: Option<Object>,
-    line: usize,
+    pub line: usize,
 }
 
 impl Token {

@@ -6,12 +6,16 @@ use std::process;
 mod ast_printer;
 mod error;
 mod expr;
+mod parser;
 mod scanner;
 mod token;
 mod token_type;
 
+use parser::Parser;
 use scanner::Scanner;
 use token::Token;
+
+use crate::ast_printer::AstPrinter;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -51,8 +55,8 @@ fn run_prompt() {
 fn run(source: String) {
     let scanner = Scanner::new(source);
     let tokens: Vec<Token> = scanner.scan_tokens();
-
-    for token in tokens {
-        println!("{token}");
-    }
+    let mut parser = Parser::new(tokens);
+    let Some(expression) = parser.parse() else { return };
+    
+    println!("{}", AstPrinter::print(&expression, &AstPrinter));
 }

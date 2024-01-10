@@ -1,3 +1,5 @@
+use crate::{token::Token, token_type::TokenType};
+
 #[derive(Debug)]
 pub struct Lox {
     line: usize,
@@ -14,5 +16,13 @@ impl Lox {
             "[line {}] Error chars [{loc}] : {}",
             self.line, self.message
         );
+    }
+
+    pub fn parse_error(token: &Token, message: String) {
+        if token.ttype == TokenType::Eof {
+            Lox::report(&Lox { line: token.line, message }, "at end.");
+        } else {
+            Lox::report(&Lox { line: token.line, message }, &format!(" at '{}'", token.lexeme));
+        }
     }
 }
