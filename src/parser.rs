@@ -23,6 +23,7 @@ impl<'a> Parser {
         self.equality()
     }
 
+
     fn equality(&mut self) -> Result<Expr, LoxParseError> {
         let mut expr = self.comparison()?;
 
@@ -60,12 +61,24 @@ impl<'a> Parser {
     }
 
     fn factor(&mut self) -> Result<Expr, LoxParseError> {
-        let mut expr = self.unary()?;
+        let mut expr = self.power()?;
 
         while self.match_tokens(&[TokenType::Slash, TokenType::Star]) {
             let operator = self.previous().clone();
-            let right = self.unary()?;
+            let right = self.power()?;
             expr = Expr::Binary(expr::BinaryExpr { left: Box::new(expr), operator, right: Box::new(right) });
+        }
+
+        Ok(expr)
+    }
+
+    fn power(&mut self) -> Result<Expr, LoxParseError> {
+        let mut expr = self.unary()?;
+
+        while self.match_tokens(&[TokenType::Exponent]) {
+            let operator = self.previous().clone();
+            let right = self.unary()?;
+            expr = Expr::Binary(expr::BinaryExpr{ left: Box::new(expr), operator, right: Box::new(right) });
         }
 
         Ok(expr)

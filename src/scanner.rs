@@ -51,6 +51,7 @@ impl Scanner {
             '+' => self.add_token(TokenType::Plus, None),
             ';' => self.add_token(TokenType::SemiColon, None),
             '*' => self.add_token(TokenType::Star, None),
+            '^' => self.add_token(TokenType::Exponent, None),
             '!' => {
                 let is_next = self.is_next('=');
                 self.add_token(
