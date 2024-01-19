@@ -53,7 +53,7 @@ fn run_prompt() {
 }
 
 fn run(source: String) {
-    let scanner = Scanner::new(source);
+    let scanner = Scanner::new(source.as_bytes());
     let tokens: Vec<Token> = scanner.scan_tokens();
     let mut parser = Parser::new(tokens);
     let Some(expression) = parser.parse() else { return };
