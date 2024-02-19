@@ -96,11 +96,11 @@ impl<'a> Parser {
 
     fn primary(&mut self) -> Result<Expr, LoxParseError> {
         if self.match_tokens(&[TokenType::False]) { 
-            return Ok(Expr::Literal(expr::LiteralExpr { value: Object::False }));
+            return Ok(Expr::Literal(expr::LiteralExpr { value: Object::Boolean(false) }));
         }
 
         if self.match_tokens(&[TokenType::True]) { 
-            return Ok(Expr::Literal(expr::LiteralExpr { value: Object::True }));
+            return Ok(Expr::Literal(expr::LiteralExpr { value: Object::Boolean(true) }));
         }
 
         if self.match_tokens(&[TokenType::Nil]) { 

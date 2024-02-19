@@ -10,12 +10,14 @@ mod parser;
 mod scanner;
 mod token;
 mod token_type;
+mod interpreter;
 
 use parser::Parser;
 use scanner::Scanner;
 use token::Token;
+use interpreter::Interpreter;
 
-use crate::ast_printer::AstPrinter;
+static INTERPRETER: Interpreter = Interpreter;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -58,5 +60,6 @@ fn run(source: String) {
     let mut parser = Parser::new(tokens);
     let Some(expression) = parser.parse() else { return };
     
-    println!("{}", AstPrinter::print(&expression, &AstPrinter));
+    INTERPRETER.interpret(expression);
+    
 }

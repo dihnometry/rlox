@@ -25,4 +25,8 @@ impl Lox {
             Lox::report(&Lox { line: token.line, message }, &format!(" at '{}'", token.lexeme));
         }
     }
+
+    pub fn runtime_error(token: &Token, message: &'static str) {
+        eprintln!("{}\n[line {}]", message, token.line)
+    }
 }
