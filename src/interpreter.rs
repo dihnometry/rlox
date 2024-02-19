@@ -35,7 +35,12 @@ impl Visitor<Result<Object, RuntimeError>> for Interpreter {
             }
             TokenType::Slash => {
                 match (left, right) {
-                    (Object::Num(a), Object::Num(b)) => Ok(Object::Num(a / b)),
+                    (Object::Num(a), Object::Num(b)) => {
+                        if b == 0.0 {
+                            return Err(RuntimeError::new("Cannot divide by zero.", op))
+                        }
+                        Ok(Object::Num(a / b))
+                    }
                     _ => Err(RuntimeError::new("Operands must be two numbers.", op)),
                 }
             }
