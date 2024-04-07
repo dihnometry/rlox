@@ -29,7 +29,7 @@ impl Visitor<Result<Object, RuntimeError>> for Interpreter {
         match binary.operator.ttype {
             TokenType::Minus => {
                 match (left, right) {
-                    (Object::Num(a), Object::Num(b)) => Ok(Object::Num(a + b)),
+                    (Object::Num(a), Object::Num(b)) => Ok(Object::Num(a - b)),
                     _ => Err(RuntimeError::new("Operands must be two numbers.", op)),
                 }
             }
@@ -52,7 +52,7 @@ impl Visitor<Result<Object, RuntimeError>> for Interpreter {
             }
             TokenType::Plus => {
                 match (left, right) {
-                    (Object::Num(a), Object::Num(b)) => Ok(Object::Num(a * b)),
+                    (Object::Num(a), Object::Num(b)) => Ok(Object::Num(a + b)),
                     (Object::Str(a), Object::Str(b)) => Ok(Object::Str(format!("{a}{b}"))),
                     _ => Err(RuntimeError::new("Operands must be two numbers or two strings.", op)),
                 }
